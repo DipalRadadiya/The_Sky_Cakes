@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glass Cup Cake Menu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff5f5;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    h1 {
+      background: #ff6b81;
+      color: white;
+      padding: 15px;
+      margin: 0;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .item {
+      background: white;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .item:hover {
+      transform: scale(1.05);
+    }
+
+    .price {
+      color: #ff4757;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    button {
+      background: #ff6b81;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #ff4757;
+    }
+
+    #cart {
+      margin: 20px;
+      padding: 15px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<h1>🍰 Glass Cup Cake Menu</h1>
+
+<div class="menu" id="menu"></div>
+
+<div id="cart">
+  <h2>🛒 Your Order</h2>
+  <ul id="cartList"></ul>
+  <h3 id="total">Total: ₹0</h3>
+</div>
+
+<script>
+  const menuItems = [
+    { name: "White Chips Vanilla", price: 70 },
+    { name: "Choco Chips Chocolate", price: 70 },
+    { name: "Mix Chips Vanilla + Chocolate", price: 70 },
+    { name: "Pineapple", price: 70 },
+    { name: "Mango", price: 70 },
+    { name: "Coffee", price: 70 },
+    { name: "KitKat Crunch", price: 75 },
+    { name: "Oreo Delight", price: 75 },
+    { name: "Brownie", price: 100 },
+    { name: "Red Velvet", price: 100 }
+  ];
+
+  const menuContainer = document.getElementById("menu");
+  const cartList = document.getElementById("cartList");
+  const totalDisplay = document.getElementById("total");
+
+  let total = 0;
+
+  menuItems.forEach((item, index) => {
+    const div = document.createElement("div");
+    div.classList.add("item");
+
+    div.innerHTML = `
+      <h3>${item.name}</h3>
+      <p class="price">₹${item.price}</p>
+      <button onclick="addToCart(${index})">Add to Cart</button>
+    `;
+
+    menuContainer.appendChild(div);
+  });
+
+  function addToCart(index) {
+    const item = menuItems[index];
+
+    const li = document.createElement("li");
+    li.textContent = `${item.name} - ₹${item.price}`;
+    cartList.appendChild(li);
+
+    total += item.price;
+    totalDisplay.textContent = `Total: ₹${total}`;
+  }
+</script>
+
+</body>
+</html>
